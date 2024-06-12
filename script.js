@@ -2,22 +2,37 @@ let descripcionCompra = ''
 let totalCompra = 0;
 let seguirComprando = true;
 
-do {
-    let producto = 0;
-    let cantidadProductos = 0;
 
-    // Validacion de los campos de entrada
-
-    while (!producto || !cantidadProductos) {
-        producto = parseInt(prompt(`Que producto desea comprar? (Ingrese solo el numero)
+const ingresarProducto = () => {
+    let producto = parseInt(prompt(`Que producto desea comprar? (Ingrese solo el numero)
         1 - Fernet Branca 750 ml - $9.000
         2 - Gancia 1 L - $5.000
         3 - Gin Gordons 700 ml $8.500
         4 - Vodka Absolut Raspberri 700 ml - $18.000
         5 - Jägermeister Jagger 700 ml - $24.000
         `));
+    return producto;
+}
 
-        cantidadProductos = parseInt(prompt("Cuantas unidades quiere agregar?"));
+const ingresarCantidadProductos = () => {
+    let cantidad = parseInt(prompt("Cuantas unidades quiere agregar?"));
+    return cantidad;
+}
+
+const mostrarDetalleCompra = (total, descripcion) => {
+    descripcion += `\nTOTAL: $${total}`;
+    alert(descripcion);
+}
+
+do {
+    let producto = 0;
+    let cantidadProductos = 0;
+
+    // Validacion de los campos de entrada.
+
+    while (!producto || !cantidadProductos) {
+        producto = ingresarProducto();
+        cantidadProductos = ingresarCantidadProductos();
 
         if(producto > 5 || producto < 1 || cantidadProductos < 0) {
             producto = 0;
@@ -27,7 +42,7 @@ do {
 
     }
 
-    // Listado de productos, donde se asignas los precios y nombres correspondientes
+    // Listado de productos, donde se asigna el precio y nombre correspondiente.
 
     let productoNombre = '';
     let precioUnitario = 0;
@@ -70,12 +85,10 @@ do {
     totalCompra += precioTotal;
 
     seguirComprando = confirm("Quiere seguir comprando?")
-} while (seguirComprando)
+} while (seguirComprando);
 
 // Se muestra el detalle de la compra realizada
-descripcionCompra += `\nTOTAL: $${totalCompra}`
-alert(descripcionCompra);
 
-
+mostrarDetalleCompra(totalCompra, descripcionCompra)
 
 
